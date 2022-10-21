@@ -34,26 +34,51 @@ def first(iterable):
 def find_pet_by_name(pet_shop, pet_name):
     return first(pet for pet in pet_shop["pets"] if pet["name"] == pet_name)
 
+# XXX: no test
+def remove_pet(pet_shop, pet):
+    pet_shop["pets"].remove(pet)
+
 def remove_pet_by_name(pet_shop, pet_name):
-    pass
+    pet = find_pet_by_name(pet_shop, pet_name)
+    remove_pet(pet_shop, pet)
 
 def add_pet_to_stock(pet_shop, pet):
-    pass
+    pet_shop["pets"].append(pet)
 
 def get_customer_cash(customer):
-    pass
+    return customer["cash"]
 
 def remove_customer_cash(customer, amount):
-    pass
+    customer["cash"] -= amount
 
 def get_customer_pet_count(customer):
-    pass
+    return len(customer["pets"])
 
 def add_pet_to_customer(customer, pet):
-    pass
+    customer["pets"].append(pet)
 
 def customer_can_afford_pet(customer, pet):
-    pass
+    return customer["cash"] >= pet["price"]
 
-def sell_pet_to_customer(pet_shop, customer):
+# XXX try adding tests for this
+def process_cash_tender(pet_shop, customer, amount):
+    remove_customer_cash(customer, amount)
+    add_or_remove_cash(pet_shop, amount)
+
+def sell_pet_to_customer(pet_shop, pet, customer):
+    # Check that the pet hasn't escaped
+    if pet == None:
+        return # raise ValueError("Pet must be not-None")
+    # Check that the customer has enough money
+    if not customer_can_afford_pet(customer, pet):
+        return # raise ValueError("Customer is too poor")
+    # Take money from customer; Add money to shop
+    process_cash_tender(pet_shop, customer, pet["price"])
+    # Remove the pet from the shop
+    # XXX feels like this breaks the encapsulation or mixing up how low/high-level this function is
+    remove_pet(pet_shop, pet)
+    # And update how many have been sold
+    increase_pets_sold(pet_shop, 1)
+    # Add the pet to the customer
+    add_pet_to_customer(customer, pet)
     pass

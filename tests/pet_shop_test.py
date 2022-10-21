@@ -132,35 +132,35 @@ class TestPetShop(unittest.TestCase):
         pet = find_pet_by_name(self.cc_pet_shop, "Fred")
         self.assertIsNone(pet)
 
-    @unittest.skip("delete this line to run the test")
+    # @unittest.skip("delete this line to run the test")
     def test_remove_pet_by_name(self):
         remove_pet_by_name(self.cc_pet_shop, "Arthur")
         pet = find_pet_by_name(self.cc_pet_shop,"Arthur")
         self.assertIsNone(pet)
 
-    @unittest.skip("delete this line to run the test")
+    # @unittest.skip("delete this line to run the test")
     def test_add_pet_to_stock(self):
         add_pet_to_stock(self.cc_pet_shop, self.new_pet)
         count = get_stock_count(self.cc_pet_shop)
         self.assertEqual(7, count)
 
-    @unittest.skip("delete this line to run the test")
+    # @unittest.skip("delete this line to run the test")
     def test_customer_cash(self):
         cash = get_customer_cash(self.customers[0])
         self.assertEqual(1000, cash)
 
-    @unittest.skip("delete this line to run the test")
+    # @unittest.skip("delete this line to run the test")
     def test_remove_customer_cash(self):
         customer = self.customers[0]
         remove_customer_cash(customer, 100)
         self.assertEqual(900, customer["cash"])
 
-    @unittest.skip("delete this line to run the test")
+    # @unittest.skip("delete this line to run the test")
     def test_customer_pet_count(self):
         count = get_customer_pet_count(self.customers[0])
         self.assertEqual(0, count)
 
-    @unittest.skip("delete this line to run the test")
+    # @unittest.skip("delete this line to run the test")
     def test_add_pet_to_customer(self):
         customer = self.customers[0]
         add_pet_to_customer(customer, self.new_pet)
@@ -168,19 +168,19 @@ class TestPetShop(unittest.TestCase):
 
     # --- OPTIONAL ---
 
-    @unittest.skip("delete this line to run the test")
+    # @unittest.skip("delete this line to run the test")
     def test_customer_can_afford_pet__sufficient_funds(self):
         customer = self.customers[0]
         can_buy_pet = customer_can_afford_pet(customer, self.new_pet)
         self.assertEqual(True, can_buy_pet)
 
-    @unittest.skip("delete this line to run the test")
+    # @unittest.skip("delete this line to run the test")
     def test_customer_can_afford_pet__insufficient_funds(self):
         customer = self.customers[1]
         can_buy_pet = customer_can_afford_pet(customer, self.new_pet)
         self.assertEqual(False, can_buy_pet)
 
-    @unittest.skip("delete this line to run the test")
+    # @unittest.skip("delete this line to run the test")
     def test_customer_can_afford_pet__exact_funds(self):
         customer = self.customers[2]
         can_buy_pet = customer_can_afford_pet(customer, self.new_pet)
@@ -189,7 +189,7 @@ class TestPetShop(unittest.TestCase):
     # These are 'integration' tests so we want multiple asserts.
     # If one fails the entire test should fail
     #
-    @unittest.skip("delete this line to run the test")
+    # @unittest.skip("delete this line to run the test")
     def test_sell_pet_to_customer__pet_found(self):
         customer = self.customers[0]
         pet = find_pet_by_name(self.cc_pet_shop,"Arthur")
@@ -201,7 +201,7 @@ class TestPetShop(unittest.TestCase):
         self.assertEqual(100, get_customer_cash(customer))
         self.assertEqual(1900, get_total_cash(self.cc_pet_shop))
 
-    @unittest.skip("delete this line to run the test")
+    # @unittest.skip("delete this line to run the test")
     def test_sell_pet_to_customer__pet_not_found(self):
         customer = self.customers[0]
         pet = find_pet_by_name(self.cc_pet_shop,"Dave")
@@ -213,7 +213,7 @@ class TestPetShop(unittest.TestCase):
         self.assertEqual(1000, get_customer_cash(customer))
         self.assertEqual(1000, get_total_cash(self.cc_pet_shop))
 
-    @unittest.skip("delete this line to run the test")
+    # @unittest.skip("delete this line to run the test")
     def test_sell_pet_to_customer__insufficient_funds(self):
         customer = self.customers[1]
         pet = find_pet_by_name(self.cc_pet_shop,"Arthur")
