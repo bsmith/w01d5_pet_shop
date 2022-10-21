@@ -21,12 +21,18 @@ def get_stock_count(pet_shop):
 def get_pets_by_breed(pet_shop, breed_name):
     return [pet for pet in pet_shop["pets"] if pet["breed"] == breed_name]
 
-def first(list):
-    return list[0] if list else None
+#def first(list):
+#    return list[0] if list else None
 
-# TODO: change first to accept a generator object (or an iterable)
+# The Trick: the for loop only runs once
+def first(iterable):
+    """Return the first item in an iterable, otherwise None"""
+    for item in iterable:
+        return item
+    return None
+
 def find_pet_by_name(pet_shop, pet_name):
-    return first([pet for pet in pet_shop["pets"] if pet["name"] == pet_name])
+    return first(pet for pet in pet_shop["pets"] if pet["name"] == pet_name)
 
 def remove_pet_by_name(pet_shop, pet_name):
     pass
