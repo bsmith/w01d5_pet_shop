@@ -34,7 +34,6 @@ def first(iterable):
 def find_pet_by_name(pet_shop, pet_name):
     return first(pet for pet in pet_shop["pets"] if pet["name"] == pet_name)
 
-# XXX: no test
 def remove_pet(pet_shop, pet):
     pet_shop["pets"].remove(pet)
 
@@ -60,7 +59,6 @@ def add_pet_to_customer(customer, pet):
 def customer_can_afford_pet(customer, pet):
     return customer["cash"] >= pet["price"]
 
-# XXX try adding tests for this
 def process_cash_tender(pet_shop, customer, amount):
     remove_customer_cash(customer, amount)
     add_or_remove_cash(pet_shop, amount)
@@ -75,7 +73,6 @@ def sell_pet_to_customer(pet_shop, pet, customer):
     # Take money from customer; Add money to shop
     process_cash_tender(pet_shop, customer, pet["price"])
     # Remove the pet from the shop
-    # XXX feels like this breaks the encapsulation or mixing up how low/high-level this function is
     remove_pet(pet_shop, pet)
     # And update how many have been sold
     increase_pets_sold(pet_shop, 1)
