@@ -78,4 +78,3 @@ def sell_pet_to_customer(pet_shop, pet, customer):
     increase_pets_sold(pet_shop, 1)
     # Add the pet to the customer
     add_pet_to_customer(customer, pet)
-    pass
