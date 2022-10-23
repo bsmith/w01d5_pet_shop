@@ -22,6 +22,6 @@ for person in people:
     affordable = can_person_afford_pet(person, person["desired_pet"])
     print(f"{person['name']} wants a {person['desired_pet']}")
     print("They can " + ("not " if not affordable else "") + "afford it")
-    if can_person_afford_pet(person, "goldfish"):
+    if not affordable and can_person_afford_pet(person, "goldfish"):
         print("Have they considered a goldfish?")
 
