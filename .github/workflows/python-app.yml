@@ -33,4 +33,5 @@ jobs:
         python3 run_tests.py
     - name: Run mypy
       run: |
-        mypy $(git ls-files \*.py)
+        mypy --strict src
+        mypy src tests *.py

@@ -1,4 +1,5 @@
 # PDA Reference: I.T 6
+# type: ignore
 
 people = [
     { "name": "Alice", "budget": 500, "desired_pet": "dog" },

@@ -1,3 +1,4 @@
+# type: ignore
 import unittest
 from src.pet_shop import *
 
