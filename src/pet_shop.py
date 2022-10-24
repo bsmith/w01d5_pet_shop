@@ -39,7 +39,8 @@ def remove_pet(pet_shop, pet):
 
 def remove_pet_by_name(pet_shop, pet_name):
     pet = find_pet_by_name(pet_shop, pet_name)
-    remove_pet(pet_shop, pet)
+    if pet is not None:
+        remove_pet(pet_shop, pet)
 
 def add_pet_to_stock(pet_shop, pet):
     pet_shop["pets"].append(pet)
