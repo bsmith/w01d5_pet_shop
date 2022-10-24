@@ -52,6 +52,18 @@ def first(iterable: Iterable[Any]) -> Any:
         return item
     return None
 
+def only_one(iterable: Iterable[Any]) -> Any:
+    """Return the only item in a list
+    Throw an exception if more than one item,
+    Return None for an empty list"""
+    rv = None
+    for item in iterable:
+        rv = item
+        break
+    for item in iterable:
+        raise ValueError("List contains more than one item")
+    return rv
+
 def select(list: Iterable[Any], pred: Callable[[Any], bool]) -> Iterable[Any]:
     return (x for x in list if pred(x))
 
@@ -59,7 +71,7 @@ def find_pet_by_name(pet_shop: PetShop, pet_name: str) -> Pet | None:
     assert isinstance(pet_shop["pets"], list)
     # I don't like this line
     # pet = first(pet for pet in pet_shop["pets"] if pet["name"] == pet_name)
-    pet = first(select(pet_shop["pets"], lambda pet: pet["name"] == pet_name)) # type: ignore
+    pet = only_one(select(pet_shop["pets"], lambda pet: pet["name"] == pet_name)) # type: ignore
     assert pet is None or isinstance(pet, dict)
     return pet
 
