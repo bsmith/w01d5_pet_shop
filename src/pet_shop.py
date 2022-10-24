@@ -3,7 +3,7 @@
 # mypy docs: https://mypy.readthedocs.io/
 
 from typing_extensions import reveal_type
-from typing import Iterable, Any
+from typing import Callable, Iterable, Any
 
 Pet = dict[str, str | int]
 Customer = dict[str, str | int | list[Pet]]
@@ -52,11 +52,14 @@ def first(iterable: Iterable[Any]) -> Any:
         return item
     return None
 
-# reveal_type(first)
+def select(list: Iterable[Any], pred: Callable[[Any], bool]) -> Iterable[Any]:
+    return (x for x in list if pred(x))
 
 def find_pet_by_name(pet_shop: PetShop, pet_name: str) -> Pet | None:
     assert isinstance(pet_shop["pets"], list)
-    pet = first(pet for pet in pet_shop["pets"] if pet["name"] == pet_name)
+    # I don't like this line
+    # pet = first(pet for pet in pet_shop["pets"] if pet["name"] == pet_name)
+    pet = first(select(pet_shop["pets"], lambda pet: pet["name"] == pet_name)) # type: ignore
     assert pet is None or isinstance(pet, dict)
     return pet
 

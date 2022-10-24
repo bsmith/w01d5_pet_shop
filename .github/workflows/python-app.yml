@@ -33,5 +33,4 @@ jobs:
         python3 run_tests.py
     - name: Run mypy
       run: |
-        mypy --strict src
-        mypy src tests *.py
+        mypy --strict src tests *.py
