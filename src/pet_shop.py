@@ -66,7 +66,8 @@ def remove_pet(pet_shop: PetShop, pet: Pet) -> None:
 
 def remove_pet_by_name(pet_shop: PetShop, pet_name: str) -> None:
     pet = find_pet_by_name(pet_shop, pet_name)
-    remove_pet(pet_shop, pet)
+    if pet is not None:
+        remove_pet(pet_shop, pet)
 
 def add_pet_to_stock(pet_shop: PetShop, pet: Pet) -> None:
     assert isinstance(pet_shop["pets"], list)
