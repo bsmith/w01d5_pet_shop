@@ -64,14 +64,13 @@ def only_one(iterable: Iterable[Any]) -> Any:
         raise ValueError("List contains more than one item")
     return rv
 
-def select(list: Iterable[Any], pred: Callable[[Any], bool]) -> Iterable[Any]:
-    return (x for x in list if pred(x))
-
 def find_pet_by_name(pet_shop: PetShop, pet_name: str) -> Pet | None:
     assert isinstance(pet_shop["pets"], list)
     # I don't like this line
     # pet = first(pet for pet in pet_shop["pets"] if pet["name"] == pet_name)
-    pet = only_one(select(pet_shop["pets"], lambda pet: pet["name"] == pet_name)) # type: ignore
+    def pred(pet: Pet) -> bool:
+        return pet["name"] == pet_name
+    pet = only_one(filter(pred, pet_shop["pets"]))
     assert pet is None or isinstance(pet, dict)
     return pet
 
