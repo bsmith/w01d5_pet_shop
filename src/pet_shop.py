@@ -3,11 +3,25 @@
 # mypy docs: https://mypy.readthedocs.io/
 
 from typing_extensions import reveal_type
-from typing import Callable, Iterable, Any
+from typing import Callable, Iterable, Any, Optional, TypedDict, cast
+from unicodedata import name
 
-Pet = dict[str, str | int]
-Customer = dict[str, str | int | list[Pet]]
-PetShop = dict[str, str | dict[str, int] | list[Pet]]
+class Pet(TypedDict):
+    name: str
+    pet_type: str
+    breed: str
+    price: int
+class Customer(TypedDict):
+    name: str
+    pets: list[Pet]
+    cash: int
+class PetShopAdmin(TypedDict):
+    total_cash: int
+    pets_sold: int
+class PetShop(TypedDict):
+    pets: list[Pet]
+    admin: dict[str, int]
+    name: str
 
 def get_pet_shop_name(pet_shop: PetShop) -> str:
     assert isinstance(pet_shop["name"], str)
@@ -64,15 +78,14 @@ def only_one(iterable: Iterable[Any]) -> Any:
         raise ValueError("List contains more than one item")
     return rv
 
-def find_pet_by_name(pet_shop: PetShop, pet_name: str) -> Pet | None:
+def find_pet_by_name(pet_shop: PetShop, pet_name: str) -> Optional[Pet]:
     assert isinstance(pet_shop["pets"], list)
     # I don't like this line
     # pet = first(pet for pet in pet_shop["pets"] if pet["name"] == pet_name)
     def pred(pet: Pet) -> bool:
         return pet["name"] == pet_name
     pet = only_one(filter(pred, pet_shop["pets"]))
-    assert pet is None or isinstance(pet, dict)
-    return pet
+    return cast(Optional[Pet], pet)
 
 def remove_pet(pet_shop: PetShop, pet: Pet) -> None:
     assert isinstance(pet_shop["pets"], list)
